@@ -1,0 +1,21 @@
+version: '3'
+services:
+  backend:
+    # Create backend container
+    build: ./
+    ports:
+      - "8000:8000"
+    container_name: backend-docker
+    restart: always
+    links:
+      - db:database
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    container_name: database-docker
+    restart: always
+    environment:
+      POSTGRES_DB: propertyFinder
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
