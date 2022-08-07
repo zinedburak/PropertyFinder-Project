@@ -41,14 +41,13 @@ func (c Core) CalculateDiscount(basketProducts []models.BasketProduct, monthlyOr
 	discountA, basketProductA := getDiscountTotalTypeA(allOrders, basketProducts, basketPriceTotal, givenAmountBasket)
 	discountC, basketProductC := getDiscountTotalTypeC(monthlyOrders, basketProducts, basketPriceTotal, givenAmountMonth)
 	maxDiscount := math.Max(discountA, math.Max(discountB, discountC))
-
 	if maxDiscount == 0 {
 		log.Printf("We are not applying any discount ")
 		basketProducts = resetDiscount(basketProducts)
 		return basketProducts
 	}
 	if maxDiscount == discountA {
-		log.Printf("We are applying discount type B the total discount is : %f", discountA)
+		log.Printf("We are applying discount type A the total discount is : %f", discountA)
 		return basketProductA
 	} else if maxDiscount == discountB {
 		log.Printf("We are applying discount type B the total discount is : %f", discountB)
