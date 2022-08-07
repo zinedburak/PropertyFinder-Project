@@ -38,38 +38,4 @@ func main() {
 		fmt.Printf("We have encoutered an error while running the application err : %v\n", err)
 	}
 
-	//var coreLayer core.CorePort
-	//coreLayer := core.NewAdapter()
-	//
-	//coreLayer.CalculateDiscount()
-
-	//customers, _ := repository.GetCustomers()
-	//fmt.Println("=====Customers=====")
-	//fmt.Println(customers)
-	//
-	//productList,_ := repository.ListProducts()
-	//fmt.Println("=====Products====")
-	//fmt.Println(productList)
-	//
-	//basketProducts,_ := repository.GetBasket(1)
-	//fmt.Println("====Basket Products====")
-	//fmt.Println(basketProducts)
-
-	//err := repository.DeleteBasketItem(1,2)
-	//if err != nil{
-	//	fmt.Println(err)
-	//}
-	////
-	//fmt.Println("====Basket Products After Delete====")
-	//basketProducts,_ = repository.GetBasket(1)
-	//fmt.Println(basketProducts)
-
-	//err := repository.AddToBasket(1,2)
-	//if err != nil{
-	//	fmt.Println(err)
-	//}
-	//
-	//basketProducts,_ = repository.GetBasket(1)
-	//fmt.Println(basketProducts)
-	//fmt.Println("====Basket Products After Delete====")
 }
