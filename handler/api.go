@@ -82,6 +82,8 @@ func (h Handler) ShowBasket(c *fiber.Ctx) error {
 	}
 	basket, err := h.repository.GetBasket(customerId)
 	if err != nil {
+		log.Printf("error while getting the basket of the customer %d the error : %v", customerId, err)
+		c.Status(fiber.StatusInternalServerError)
 		return err
 	}
 	return c.JSON(&basket)
@@ -90,31 +92,53 @@ func (h Handler) ShowBasket(c *fiber.Ctx) error {
 func (h Handler) DeleteBasketItem(c *fiber.Ctx) error {
 	var request DeleteBasketRequest
 	err := c.BodyParser(&request)
-	if err != nil {
-		return err
+	if err != nil || request.ProductId == 0 || request.CustomerId == 0 {
+		if err != nil {
+			log.Printf("error while parsing the request : %v", err)
+		}
+		c.Status(fiber.StatusBadRequest)
+		return fiber.ErrBadRequest
 	}
+
 	err = h.repository.DeleteBasketItem(request.CustomerId, request.ProductId)
+	if err != nil {
+		log.Printf("error while deleting item to basket for the customer %d, the error: %v",
+			request.CustomerId, err)
+		c.Status(fiber.StatusInternalServerError)
+		return fiber.ErrInternalServerError
+	}
 
 	basket, err := h.repository.GetBasket(request.CustomerId)
 	if err != nil {
-		return err
+		log.Printf("error while getting basket of the customer with id : %d  err : %v", request.CustomerId, err)
+		c.Status(fiber.StatusInternalServerError)
+		return fiber.ErrInternalServerError
 	}
 
 	monthlyOrders, err := h.repository.GetMonthlyOrders(request.CustomerId)
 	if err != nil {
-		return err
+		log.Printf("error while getting monthly orders of the customer %d error : %v", request.CustomerId, err)
+		c.Status(fiber.StatusInternalServerError)
+		return fiber.ErrInternalServerError
 	}
+
 	allOrders, err := h.repository.GetAllOrders(request.CustomerId)
 	if err != nil {
-		return err
+		log.Printf("error while getting all orders of the customer %d error : %v", request.CustomerId, err)
+		c.Status(fiber.StatusInternalServerError)
+		return fiber.ErrInternalServerError
 	}
+
 	monthlyLimit, totalLimit := h.repository.GetLimits()
 	discountedBasket := h.core.CalculateDiscount(basket, monthlyOrders,
 		allOrders, monthlyLimit, totalLimit)
 
 	err = h.repository.UpdateBasketProducts(discountedBasket)
 	if err != nil {
-		return err
+		log.Printf("error while updating customers basket with the discounted basket customer id : %d error : %v",
+			request.CustomerId, err)
+		c.Status(fiber.StatusInternalServerError)
+		return fiber.ErrInternalServerError
 	}
 
 	return nil
@@ -123,7 +147,8 @@ func (h Handler) DeleteBasketItem(c *fiber.Ctx) error {
 func (h Handler) CompleteOrder(c *fiber.Ctx) error {
 	customerId, err := c.ParamsInt("customerId")
 	if err != nil {
-		return err
+		c.Status(fiber.StatusBadRequest)
+		return fiber.ErrBadRequest
 	}
 	basket, err := h.repository.GetBasket(customerId)
 
@@ -131,16 +156,20 @@ func (h Handler) CompleteOrder(c *fiber.Ctx) error {
 
 	err = h.repository.CompleteOrder(customerId, total, totalDiscount, discountRate, totalWithDiscount)
 	if err != nil {
-		return err
+		log.Printf("error while completing order for custormer : %d error : %v",
+			customerId, err)
+		c.Status(fiber.StatusInternalServerError)
+		return fiber.ErrInternalServerError
 	}
-
+	c.Status(fiber.StatusOK)
 	return nil
 }
 
 func (h Handler) ListProducts(c *fiber.Ctx) error {
 	products, err := h.repository.ListProducts()
 	if err != nil {
-		return err
+		log.Printf("error while getting products from database error := %v", err)
+		return fiber.ErrInternalServerError
 	}
 	return c.JSON(products)
 }
