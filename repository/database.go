@@ -174,27 +174,6 @@ func (a Adapter) CompleteOrder(customerId int, total, totalDiscount, discountRat
 	return nil
 }
 
-// AddProduct Admin
-func (a Adapter) AddProduct(product models.Product) {
-	a.db.Create(&product)
-}
-
-// AddCustomer Admin
-func (a Adapter) AddCustomer(customer models.Customer) {
-	a.db.Create(&customer)
-}
-
-// GetCustomers Admin
-func (a Adapter) GetCustomers() ([]models.Customer, error) {
-	var customers []models.Customer
-	result := a.db.Find(&customers)
-	if result.Error != nil {
-		fmt.Println("There was an error")
-		return nil, result.Error
-	}
-	return customers, nil
-}
-
 func (a Adapter) UpdateBasketProducts(basketProducts []models.BasketProduct) error {
 	for _, product := range basketProducts {
 		err := a.db.Save(&product).Error

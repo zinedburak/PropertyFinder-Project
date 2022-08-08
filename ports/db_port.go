@@ -3,9 +3,6 @@ package ports
 import "PropertyFinder/models"
 
 type DbPort interface {
-	AddProduct(product models.Product)
-	AddCustomer(customer models.Customer)
-	GetCustomers() ([]models.Customer, error)
 	ListProducts() ([]models.Product, error)
 	GetBasket(customerId int) ([]models.BasketProduct, error)
 	DeleteBasketItem(customerId, productId int) error
