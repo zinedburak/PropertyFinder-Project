@@ -21,7 +21,7 @@ separating layers of your application the architecture reduces coupling.
     - Handler Port
 
 Ports provide a general structure for the layers using interfaces. Application layers connect to these ports with their
-Adapters
+Adaptors
 
 - There are 3 Layers in this application
     - Repository Layer
