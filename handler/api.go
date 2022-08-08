@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"PropertyFinder/handler/models"
 	"PropertyFinder/ports"
 	"github.com/gofiber/fiber/v2"
 	"log"
@@ -25,7 +26,7 @@ func (h Handler) RegisterRoutes(app *fiber.App) {
 }
 
 func (h Handler) AddToBasket(c *fiber.Ctx) error {
-	var request AddToBasketRequest
+	var request models.AddToBasketRequest
 	err := c.BodyParser(&request)
 
 	if err != nil || request.ProductId == 0 || request.CustomerId == 0 {
@@ -72,7 +73,12 @@ func (h Handler) AddToBasket(c *fiber.Ctx) error {
 		return fiber.ErrInternalServerError
 	}
 
-	return nil
+	response := models.AddedBasketResponse{
+		AddedProductId: request.ProductId,
+		Message:        "Successfully Added Item To Your Basket",
+		StatusCode:     fiber.StatusOK,
+	}
+	return c.JSON(response)
 }
 
 func (h Handler) ShowBasket(c *fiber.Ctx) error {
@@ -86,11 +92,20 @@ func (h Handler) ShowBasket(c *fiber.Ctx) error {
 		c.Status(fiber.StatusInternalServerError)
 		return err
 	}
-	return c.JSON(&basket)
+	total, totalDiscount, totalWithDiscount, discountRate := h.core.GetDiscount(basket)
+	response := models.ShowBasketResponse{
+		StatusCode:        200,
+		Total:             total,
+		TotalDiscount:     totalDiscount,
+		TotalWithDiscount: totalWithDiscount,
+		DiscountRate:      discountRate,
+		BasketProducts:    basket,
+	}
+	return c.JSON(response)
 }
 
 func (h Handler) DeleteBasketItem(c *fiber.Ctx) error {
-	var request DeleteBasketRequest
+	var request models.DeleteBasketRequest
 	err := c.BodyParser(&request)
 	if err != nil || request.ProductId == 0 || request.CustomerId == 0 {
 		if err != nil {
@@ -141,7 +156,12 @@ func (h Handler) DeleteBasketItem(c *fiber.Ctx) error {
 		return fiber.ErrInternalServerError
 	}
 
-	return nil
+	response := models.DeleteBasketResponse{
+		DeletedProductsId: request.ProductId,
+		Message:           "Successfully Deleted Item From Your Basket",
+		StatusCode:        fiber.StatusOK,
+	}
+	return c.JSON(response)
 }
 
 func (h Handler) CompleteOrder(c *fiber.Ctx) error {
@@ -161,8 +181,14 @@ func (h Handler) CompleteOrder(c *fiber.Ctx) error {
 		c.Status(fiber.StatusInternalServerError)
 		return fiber.ErrInternalServerError
 	}
-	c.Status(fiber.StatusOK)
-	return nil
+	response := models.CompleteOrderResponse{
+		StatusCode:        200,
+		Total:             total,
+		TotalDiscount:     totalDiscount,
+		TotalWithDiscount: totalWithDiscount,
+		DiscountRate:      discountRate,
+	}
+	return c.Status(fiber.StatusOK).JSON(response)
 }
 
 func (h Handler) ListProducts(c *fiber.Ctx) error {
@@ -171,5 +197,9 @@ func (h Handler) ListProducts(c *fiber.Ctx) error {
 		log.Printf("error while getting products from database error := %v", err)
 		return fiber.ErrInternalServerError
 	}
-	return c.JSON(products)
+	response := models.ListProductsResponse{
+		StatusCode:     200,
+		BasketProducts: products,
+	}
+	return c.Status(fiber.StatusOK).JSON(response)
 }

@@ -1,4 +1,4 @@
-package handler
+package models
 
 type AddToBasketRequest struct {
 	CustomerId int `json:"customer_id"`
