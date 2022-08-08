@@ -23,7 +23,6 @@ func (h Handler) RegisterRoutes(app *fiber.App) {
 	app.Post("/api/add-to-basket", h.AddToBasket)
 	app.Delete("/api/delete-basket-item", h.DeleteBasketItem)
 	app.Post("/api/complete-order/:customerId", h.CompleteOrder)
-
 }
 
 func (h Handler) AddToBasket(c *fiber.Ctx) error {
