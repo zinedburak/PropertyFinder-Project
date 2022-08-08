@@ -100,7 +100,7 @@ curl --location --request DELETE 'http://localhost:8000/api/delete-basket-item' 
 --header 'Content-Type: application/json' \
 --data-raw '{
     "customer_id" : 1,
-    "product_id": 3
+    "product_id": 1
 }'
 ```
 
