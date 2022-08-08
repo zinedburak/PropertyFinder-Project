@@ -101,10 +101,6 @@ func (a Adapter) GetBasket(customerId int) ([]models.BasketProduct, error) {
 		err = errors.New(fmt.Sprintf("There was an error getting the customers basket data: %v", err))
 		return nil, err
 	}
-	if len(basketProducts) == 0 {
-		err = errors.New(" could not find your basket please make sure that you have an not purchased  basket ")
-		return nil, err
-	}
 	return basketProducts, nil
 }
 
