@@ -3,6 +3,7 @@
 # How to Run The Application
 
 - Make sure that you have docker installed
+- Make sure that ports 8000, 5432 are free
 - Run the ```docker-compose up --build``` command inside the main folder that you clone the project
 - Run the ```go run seeder/main.go``` command for seeding the database with products customers and limits
 - The application will be built and run on the 8000 port in your local host with the above command

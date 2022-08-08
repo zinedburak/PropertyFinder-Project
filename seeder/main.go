@@ -15,7 +15,7 @@ func main() {
 }
 
 func seedDatabase() {
-	dsn := "host=db user=postgres password=postgres dbname=propertyFinder port=5432"
+	dsn := "host=localhost user=postgres password=postgres dbname=propertyFinder port=5432"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Printf("DB connection failure : %v", err)
