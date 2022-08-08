@@ -3,6 +3,7 @@ package handler
 import (
 	"PropertyFinder/handler/models"
 	"PropertyFinder/ports"
+	"errors"
 	"github.com/gofiber/fiber/v2"
 	"log"
 )
@@ -90,6 +91,10 @@ func (h Handler) ShowBasket(c *fiber.Ctx) error {
 	if err != nil {
 		log.Printf("error while getting the basket of the customer %d the error : %v", customerId, err)
 		c.Status(fiber.StatusInternalServerError)
+		return err
+	}
+	if len(basket) == 0 {
+		err = errors.New("you dont have any item in your basket please add an item")
 		return err
 	}
 	total, totalDiscount, totalWithDiscount, discountRate := h.core.GetDiscount(basket)
