@@ -3,7 +3,7 @@
 # How to Run The Application
 
 - Make sure that you have docker installed
-- Run the "docker-compose up --build" command inside the main folder that you clone the project
+- Run the ```docker-compose up --build``` command inside the main folder that you clone the project
 - The application will be built and run on the 8000 port in your local host with the above command
 - Example curls will be given on the following sections
 
@@ -94,11 +94,11 @@ curl --location --request POST 'http://localhost:8000/api/add-to-basket' \
 ### Delete Basket Item
 
 ```
-curl --location --request POST 'http://localhost:8000/api/delete-basket-item' \
+curl --location --request DELETE 'http://localhost:8000/api/delete-basket-item' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "customer_id" : 1,
-    "product_id": 1
+    "product_id": 4
 }'
 ```
 

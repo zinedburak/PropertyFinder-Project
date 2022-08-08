@@ -21,7 +21,7 @@ func (h Handler) RegisterRoutes(app *fiber.App) {
 	app.Get("/api/show-basket/:customerId", h.ShowBasket)
 	app.Get("/api/list-products", h.ListProducts)
 	app.Post("/api/add-to-basket", h.AddToBasket)
-	app.Post("/api/delete-basket-item", h.DeleteBasketItem)
+	app.Delete("/api/delete-basket-item", h.DeleteBasketItem)
 	app.Post("/api/complete-order/:customerId", h.CompleteOrder)
 
 }
