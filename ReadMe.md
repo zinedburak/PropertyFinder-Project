@@ -1,4 +1,5 @@
 # Basket Project
+[![Go](https://github.com/zinedburak/PropertyFinder-Project/actions/workflows/go.yml/badge.svg?branch=master)](https://github.com/zinedburak/PropertyFinder-Project/actions/workflows/go.yml)
 
 # How to Run The Application
 
