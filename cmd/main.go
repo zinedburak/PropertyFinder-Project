@@ -22,11 +22,10 @@ func main() {
 
 	coreLayer = campaing.NewAdapter()
 
-	var api ports.BasketHandlerPort
-
 	var serviceLayer ports.ServicePort
 	serviceLayer = service.NewAdapter(repositoryLayer, coreLayer)
 
+	var api ports.BasketHandlerPort
 	api = handler.NewAdapter(serviceLayer)
 
 	app := fiber.New()
