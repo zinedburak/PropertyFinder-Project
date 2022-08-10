@@ -39,7 +39,7 @@ all the Databases function that reads from or writes to DB in this layer.
 
 ### Service Layer
 
-This layer holds the core business logic of the application which consists of the discount logic.
+This layer holds the coreLayer business logic of the application which consists of the discount logic.
 
 ### Handler Layer
 
@@ -58,11 +58,11 @@ The Backend side of the application has been developed with Go and for the datab
 
 Building the application I used TDD approach
 
-- Only unit test for the core logic was written for this application.
-    - There are two functions in the core logic and main functions is CalculateDiscount. Since there are 4 different
+- Only unit test for the coreLayer logic was written for this application.
+    - There are two functions in the coreLayer logic and main functions is CalculateDiscount. Since there are 4 different
       scenarios for the discount I have implemented tests for each of these scenarios which are : No Discount, Discount
       Type A , Discount Type B , Discount Type C.
-- After unit test was done I implemented the core logic for CalculateDiscount it uses helper functions to calculate
+- After unit test was done I implemented the coreLayer logic for CalculateDiscount it uses helper functions to calculate
   Discount A and Discount B. With service layer of the application was done.
 - Completing the service layer provided me the information that I will need from the database. I wrote database
   functionalities according to this. Used gorm library for all database transactions

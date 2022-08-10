@@ -1,4 +1,4 @@
-package service
+package campaing
 
 import (
 	"PropertyFinder/models"

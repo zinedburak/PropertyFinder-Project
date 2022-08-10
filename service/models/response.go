@@ -32,6 +32,6 @@ type CompleteOrderResponse struct {
 }
 
 type ListProductsResponse struct {
-	StatusCode     int              `json:"status_code"`
-	BasketProducts []models.Product `json:"basket_products"`
+	StatusCode int              `json:"status_code"`
+	Products   []models.Product `json:"basket_products"`
 }

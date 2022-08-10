@@ -1,6 +1,7 @@
 package main
 
 import (
+	"PropertyFinder/campaing"
 	"PropertyFinder/handler"
 	"PropertyFinder/ports"
 	"PropertyFinder/repository"
@@ -17,11 +18,16 @@ func main() {
 	var repositoryLayer ports.DbPort
 	repositoryLayer, _ = repository.NewAdapter(dsn)
 
-	var core ports.CorePort
-	core = service.NewAdapter()
+	var coreLayer ports.CorePort
+
+	coreLayer = campaing.NewAdapter()
 
 	var api ports.BasketHandlerPort
-	api = handler.NewAdapter(repositoryLayer, core)
+
+	var serviceLayer ports.ServicePort
+	serviceLayer = service.NewAdapter(repositoryLayer, coreLayer)
+
+	api = handler.NewAdapter(repositoryLayer, coreLayer, serviceLayer)
 
 	app := fiber.New()
 
