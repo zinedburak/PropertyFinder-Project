@@ -27,7 +27,7 @@ func main() {
 	var serviceLayer ports.ServicePort
 	serviceLayer = service.NewAdapter(repositoryLayer, coreLayer)
 
-	api = handler.NewAdapter(repositoryLayer, coreLayer, serviceLayer)
+	api = handler.NewAdapter(serviceLayer)
 
 	app := fiber.New()
 

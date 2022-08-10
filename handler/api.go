@@ -8,13 +8,11 @@ import (
 )
 
 type Handler struct {
-	repository ports.DbPort
-	core       ports.CorePort
-	service    ports.ServicePort
+	service ports.ServicePort
 }
 
-func NewAdapter(repository ports.DbPort, core ports.CorePort, service ports.ServicePort) *Handler {
-	return &Handler{repository: repository, core: core, service: service}
+func NewAdapter(service ports.ServicePort) *Handler {
+	return &Handler{service: service}
 }
 
 func (h Handler) RegisterRoutes(app *fiber.App) {
