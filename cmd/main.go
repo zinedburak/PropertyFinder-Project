@@ -19,7 +19,6 @@ func main() {
 	repositoryLayer, _ = repository.NewAdapter(dsn)
 
 	var coreLayer ports.CorePort
-
 	coreLayer = campaing.NewAdapter()
 
 	var serviceLayer ports.ServicePort
