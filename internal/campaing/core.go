@@ -1,7 +1,7 @@
 package campaing
 
 import (
-	"PropertyFinder/models"
+	"PropertyFinder/internal/models"
 	"log"
 	"math"
 )

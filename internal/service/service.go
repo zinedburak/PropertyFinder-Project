@@ -1,8 +1,8 @@
 package service
 
 import (
-	"PropertyFinder/ports"
-	"PropertyFinder/service/models"
+	"PropertyFinder/internal/ports"
+	"PropertyFinder/internal/service/models"
 	"errors"
 	"log"
 )

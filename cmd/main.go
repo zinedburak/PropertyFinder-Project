@@ -1,11 +1,10 @@
 package main
 
 import (
-	"PropertyFinder/campaing"
-	"PropertyFinder/handler"
-	"PropertyFinder/ports"
-	"PropertyFinder/repository"
-	"PropertyFinder/service"
+	"PropertyFinder/internal/campaing"
+	"PropertyFinder/internal/handler"
+	"PropertyFinder/internal/repository"
+	"PropertyFinder/internal/service"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -15,17 +14,14 @@ func main() {
 	// ports
 
 	dsn := "host=db user=postgres password=postgres dbname=propertyFinder port=5432"
-	var repositoryLayer ports.DbPort
-	repositoryLayer, _ = repository.NewAdapter(dsn)
 
-	var coreLayer ports.CorePort
-	coreLayer = campaing.NewAdapter()
+	repositoryLayer, _ := repository.NewAdapter(dsn)
 
-	var serviceLayer ports.ServicePort
-	serviceLayer = service.NewAdapter(repositoryLayer, coreLayer)
+	coreLayer := campaing.NewAdapter()
 
-	var api ports.BasketHandlerPort
-	api = handler.NewAdapter(serviceLayer)
+	serviceLayer := service.NewAdapter(repositoryLayer, coreLayer)
+
+	api := handler.NewAdapter(serviceLayer)
 
 	app := fiber.New()
 

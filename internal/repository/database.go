@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"PropertyFinder/models"
+	"PropertyFinder/internal/models"
 	"errors"
 	"fmt"
 	"gorm.io/driver/postgres"
@@ -98,7 +98,7 @@ func (a Adapter) GetBasket(customerId int) ([]models.BasketProduct, error) {
 		Find(&basketProducts).Error
 
 	if err != nil {
-		err = errors.New(fmt.Sprintf("There was an error getting the customers basket data: %v", err))
+		err = fmt.Errorf("there was an error getting the customers basket data: %v", err)
 		return nil, err
 	}
 	return basketProducts, nil

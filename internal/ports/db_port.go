@@ -1,6 +1,8 @@
 package ports
 
-import "PropertyFinder/models"
+import (
+	"PropertyFinder/internal/models"
+)
 
 type DbPort interface {
 	ListProducts() ([]models.Product, error)

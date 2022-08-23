@@ -1,7 +1,7 @@
 package campaing
 
 import (
-	"PropertyFinder/models"
+	"PropertyFinder/internal/models"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"

@@ -1,6 +1,8 @@
 package ports
 
-import "PropertyFinder/service/models"
+import (
+	"PropertyFinder/internal/service/models"
+)
 
 type ServicePort interface {
 	AddToBasket(customerId, productId int) (models.AddedBasketResponse, error)

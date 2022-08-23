@@ -1,7 +1,7 @@
 package main
 
 import (
-	"PropertyFinder/models"
+	"PropertyFinder/internal/models"
 	"errors"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

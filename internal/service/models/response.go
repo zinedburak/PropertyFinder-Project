@@ -1,6 +1,8 @@
 package models
 
-import "PropertyFinder/models"
+import (
+	"PropertyFinder/internal/models"
+)
 
 type DeleteBasketResponse struct {
 	DeletedProductsId int    `json:"deleted_products_id"`

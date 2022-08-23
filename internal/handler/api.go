@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"PropertyFinder/handler/models"
-	"PropertyFinder/ports"
+	"PropertyFinder/internal/handler/models"
+	"PropertyFinder/internal/ports"
 	"github.com/gofiber/fiber/v2"
 	"log"
 )
