@@ -1,7 +1,7 @@
 package main
 
 import (
-	"PropertyFinder/internal/campaing"
+	"PropertyFinder/internal/campaign"
 	"PropertyFinder/internal/handler"
 	"PropertyFinder/internal/repository"
 	"PropertyFinder/internal/service"
@@ -17,7 +17,7 @@ func main() {
 
 	repositoryLayer, _ := repository.NewAdapter(dsn)
 
-	coreLayer := campaing.NewAdapter()
+	coreLayer := campaign.NewAdapter()
 
 	serviceLayer := service.NewAdapter(repositoryLayer, coreLayer)
 

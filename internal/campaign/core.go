@@ -1,4 +1,4 @@
-package campaing
+package campaign
 
 import (
 	"PropertyFinder/internal/models"
@@ -32,10 +32,6 @@ func (c Core) CalculateDiscount(basketProducts []models.BasketProduct, monthlyOr
 			basketProducts[index].TotalWithDiscount = basketProduct.TotalPrice * 0.92
 			basketProducts[index].DiscountPrice = basketProduct.TotalPrice * 0.08
 			discountB += basketProducts[index].DiscountPrice
-		} else {
-			basketProducts[index].DiscountRate = 0
-			basketProducts[index].TotalWithDiscount = basketProduct.TotalPrice
-			basketProducts[index].DiscountPrice = 0
 		}
 	}
 	discountA, basketProductA := getDiscountTotalTypeA(allOrders, basketProducts, basketPriceTotal, givenAmountBasket)

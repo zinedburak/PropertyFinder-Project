@@ -1,4 +1,4 @@
-package campaing
+package campaign
 
 import (
 	"PropertyFinder/internal/models"
